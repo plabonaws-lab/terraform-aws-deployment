@@ -16,11 +16,11 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v3
 
-      # 2️⃣ Setup Terraform
+      # 2️⃣ Setup Terraform (fixed)
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
-          terraform_version: 1.8.7  # use your preferred version
+          terraform_version: 1.8.7  # only CLI version
 
       # 3️⃣ Configure AWS credentials
       - name: Configure AWS Credentials
@@ -44,4 +44,3 @@ jobs:
       - name: Terraform Apply
         working-directory: ./Deploy-EC2
         run: terraform apply -auto-approve tfplan
-
