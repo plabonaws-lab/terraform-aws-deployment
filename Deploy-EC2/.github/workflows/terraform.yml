@@ -1,0 +1,47 @@
+name: Terraform Deploy
+
+on:
+  push:
+    branches:
+      - main       # Run workflow on push to main branch
+  workflow_dispatch: # allows manual trigger
+
+jobs:
+  terraform:
+    name: Terraform Apply
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Checkout the repo
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      # 2️⃣ Setup Terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.8.7  # use your preferred version
+
+      # 3️⃣ Configure AWS credentials
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      # 4️⃣ Terraform Init
+      - name: Terraform Init
+        working-directory: ./Deploy-EC2
+        run: terraform init
+
+      # 5️⃣ Terraform Plan
+      - name: Terraform Plan
+        working-directory: ./Deploy-EC2
+        run: terraform plan -out=tfplan
+
+      # 6️⃣ Terraform Apply
+      - name: Terraform Apply
+        working-directory: ./Deploy-EC2
+        run: terraform apply -auto-approve tfplan
+
