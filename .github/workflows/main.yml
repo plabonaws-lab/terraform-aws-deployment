@@ -28,7 +28,7 @@ jobs:
 
       - name: Terraform Init
         working-directory: ./Deploy-EC2
-        run: terraform init
+        run: terraform init -reconfigure
 
       - name: Terraform Plan
         working-directory: ./Deploy-EC2
