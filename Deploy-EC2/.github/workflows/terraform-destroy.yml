@@ -30,6 +30,6 @@ jobs:
         working-directory: ./Deploy-EC2
         run: terraform init
 
-      - name: Terraform Destroy
+      - name: Terraform Destroy Job
         working-directory: ./Deploy-EC2
         run: terraform destroy -auto-approve
