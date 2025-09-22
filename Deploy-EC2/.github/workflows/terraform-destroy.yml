@@ -30,7 +30,7 @@ jobs:
 
       - name: Terraform Init
         working-directory: ./Deploy-EC2
-        run: terraform init
+        run: terraform init 
 
       - name: Terraform Destroy
         working-directory: ./Deploy-EC2
