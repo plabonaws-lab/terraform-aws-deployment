@@ -8,6 +8,8 @@ on:
 
 jobs:
   terraform:
+    # Run only if commit message contains [destroy]
+    if: "contains(github.event.head_commit.message, '[deploy]')"
     name: Terraform Apply 
     runs-on: ubuntu-latest
 
